@@ -1,0 +1,15 @@
+{
+  "name": "a4-machine-learning",
+  "version": "1.0.0",
+  "description": "* In this assignment, you shall implement the Naïve Bayes machine learning algorithm and use it on some datasets.\r * You can use any programming language you like.\r * ~~You can work alone or in a group of two students.~~\r * You shall present your application and code at an oral examination.\r * You are not required to build a REST web service for this assignment.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "GusFors",
+  "license": "MIT",
+  "dependencies": {
+    "csvtojson": "^2.0.10"
+  }
+}
