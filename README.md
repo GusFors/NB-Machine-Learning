@@ -1,5 +1,5 @@
 Assignment A4 done for the course 2DV515 at Linnaeus University. [Link to assignment description](https://coursepress.lnu.se/courses/web-intelligence/assignments/a4)
-It uses the Naïve Bayes machine learning algorithm to classify it's input data and displays various classification in the console.
+It uses the Naïve Bayes machine learning algorithm to classify it's input data and displays various classification info in the console.
 
 Run with `npm start ./PATH-TO-CSV-DATA`, for example `npm start ./data/iris.csv`
 
