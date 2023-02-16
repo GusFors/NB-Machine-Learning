@@ -4,7 +4,20 @@ class NaiveBayesMap {
   }
 
   fit(X, y) {
-    console.log(X)
+    for (let i = 0; i < y.length; i++) {
+      if (!this.categories.has(y[i])) {
+        this.categories.set(
+          y[i],
+          new Map([
+            ['means', []],
+            ['stdev', []],
+            ['data', []],
+          ])
+        )
+      }
+      this.categories.get(y[i]).get('data').push(X[i])
+    }
+    console.log(this.categories)
   }
 }
 

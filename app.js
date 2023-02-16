@@ -11,7 +11,7 @@ async function run() {
     console.log(dataM)
 
     let nb = new NaiveBayesMap()
-    nb.fit(dataM.data.get('x'),)
+    nb.fit(dataM.data.get('x'), dataM.data.get('y'))
     return
   }
 
