@@ -1,10 +1,19 @@
 const conv = require('./data-utils/converter')
 const NaiveBayes = require('./data-utils/NaiveBayes')
+const NaiveBayesMap = require('./data-utils/NaiveBayesMap')
 const { performance } = require('perf_hooks')
 
 async function run() {
   // get data from file specified in process arguments
   const args = process.argv.slice(2)
+  if (args[1] === 'map=true') {
+    const data = await conv.getDataMap(args[0])
+    console.log(data)
+
+    let nb = new NaiveBayesMap()
+    return
+  }
+
   const data = await conv.getData(args[0])
   let nb = new NaiveBayes()
 
@@ -32,7 +41,9 @@ async function run() {
   console.log(`Predict time: \x1b[33m${(t3 - t2).toFixed(3)}\x1b[0m ms`)
   console.log(`Accuracy time: \x1b[33m${(t5 - t4).toFixed(3)}\x1b[0m ms`)
 
-  console.log(`\nAccuracy: \x1b[33m${(acc * 100).toFixed(2)}%\x1b[0m, (\x1b[33m${data.data.y.length * acc}/${data.data.y.length}\x1b[0m correctly classified)`)
+  console.log(
+    `\nAccuracy: \x1b[33m${(acc * 100).toFixed(2)}%\x1b[0m, (\x1b[33m${data.data.y.length * acc}/${data.data.y.length}\x1b[0m correctly classified)`
+  )
   console.log('\nConfusion Matrix:\n')
 
   // generate and output the confusion matrix in two forms to the console

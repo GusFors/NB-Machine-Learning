@@ -4,6 +4,7 @@ const converter = csv({ delimiter: ',', noheader: true, output: 'csv' })
 // read and convert the csv data to an js object to be used for NaiveBayes
 module.exports.getData = async (dataPath) => {
   let dataObj = {}
+
   return converter.fromFile(dataPath).then((convertedCsv) => {
     // X input examples, y intLabels
     let data = { x: [], y: [] }
@@ -32,5 +33,47 @@ module.exports.getData = async (dataPath) => {
     dataObj.data = data
     dataObj.labelStrings = labelStrings
     return dataObj
+  })
+}
+
+module.exports.getDataMap = async (dataPath) => {
+  let dataMap = new Map()
+
+  return converter.fromFile(dataPath).then((convertedCsv) => {
+    let daMap = new Map()
+
+    let x = []
+    let y = []
+    // X input examples, y intLabels
+
+    let labelStrings = { currentIdInt: 0 } // keep track and keep label strings as ints
+
+    convertedCsv.forEach((dataEntry, index) => {
+      // store each data attr for each X in a array
+      let xAmple = []
+      for (let i = 0; i < dataEntry.length; i++) {
+        // ignore first line for values
+        if (index > 0) {
+          if (i < dataEntry.length - 1) {
+            xAmple.push(parseFloat(dataEntry[i]))
+          } else {
+            // assumes last attr is the class/label
+            x.push(xAmple)
+            if (!labelStrings[dataEntry[i]]) {
+              labelStrings[dataEntry[i]] = { label: dataEntry[i], id: labelStrings.currentIdInt }
+              labelStrings.currentIdInt++
+            }
+            y.push(labelStrings[dataEntry[i]].id)
+          }
+        }
+      }
+    })
+
+    daMap.set('x', x)
+    daMap.set('y', y)
+
+    dataMap.set('data', daMap)
+    dataMap.labelStrings = labelStrings
+    return dataMap
   })
 }
